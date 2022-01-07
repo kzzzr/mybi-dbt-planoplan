@@ -2,12 +2,12 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'mybi_dbt_ramm'
+name: 'mybi_dbt_planoplan'
 version: '1.0.0'
 config-version: 2
 
 # This setting configures which "profile" dbt uses for this project.
-profile: 'mybi_dbt_ramm'
+profile: 'mybi_dbt_planoplan'
 
 # These configurations specify where dbt should look for different types of files.
 # The `source-paths` config, for example, states that models in this project can be
@@ -24,57 +24,28 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_modules"
 
-vars:
-    account_id_ads: "30595"
-    account_id_amocrm: "30350"
-    account_id_currency: "33199"
-    account_id_direct: "30596, 33206, 33207"
-    account_id_facebook: "30246, 30610, 32296, 33162, 33203, 35748"
-
-sources:
-    # ONLY ENABLE NECESSARY SOURCES FROM CORE MODULE
-    mybi_dbt_core:
-        sources:
-            +enabled: false
-            ads:
-                +enabled: true
-            amocrm:
-                +enabled: true
-            currency:
-                +enabled: true
-            direct:
-                +enabled: true
-            facebook:
-                +enabled: true
-            general:
-                +enabled: true
-
 models:
-    # ONLY ENABLE NECESSARY MODELS FROM CORE MODULE
-    mybi_dbt_core:   
-        staging:
-            +enabled: false
-            ads:
-                +enabled: true
-            amocrm:
-                +enabled: true
-            currency:
-                +enabled: true
-            direct:
-                +enabled: true
-            facebook:
-                +enabled: true
-            general:
-                +enabled: true
-
-    mybi_dbt_ramm:
+    mybi_dbt_planoplan:
         +materialized: table
+        +tags: ["planoplan"]
         
         staging:
-            tags: ["staging"]
+            +tags: ["staging"]
+            order_by: ["session_id"]
+            partition_by: ["toYYYYMM(dt)"]            
         
         intermediate:
-            tags: ["intermediate"]
+            +tags: ["intermediate"]
+            order_by: ["session_id"]
+            partition_by: ["toYYYYMM(dt)"]            
+      
+        marts:
+            tags: ["marts"]
 
-        # marts:
-        #     tags: ["marts"]
+            facts:
+                tags: ["facts"]
+                order_by: ["session_id"]
+                partition_by: ["toYYYYMM(dt)"]                
+            
+            dims:
+                tags: ["dims"]
