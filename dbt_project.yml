@@ -12,10 +12,10 @@ profile: 'mybi_dbt_planoplan'
 # These configurations specify where dbt should look for different types of files.
 # The `source-paths` config, for example, states that models in this project can be
 # found in the "models/" directory. You probably won't need to change these!
-source-paths: ["models"]
+model-paths: ["models"]
 analysis-paths: ["analysis"]
 test-paths: ["tests"]
-data-paths: ["data"]
+seed-paths: ["data"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 
@@ -42,10 +42,19 @@ models:
         marts:
             tags: ["marts"]
 
+            dim:
+                tags: ["dim"]
+            
+            fct:
+                # normalized fact tables
+                +enabled: True
+                tags: ["fct"]
+                order_by: ["session_id"]
+                partition_by: ["toYYYYMM(dt)"]            
+
             facts:
+                # denormalized fact tables
+                +enabled: True
                 tags: ["facts"]
                 order_by: ["session_id"]
-                partition_by: ["toYYYYMM(dt)"]                
-            
-            dims:
-                tags: ["dims"]
+                partition_by: ["toYYYYMM(dt)"]

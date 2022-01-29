@@ -1,11 +1,6 @@
 SELECT DISTINCT 
 
-	  multiIf(
-		ilike(ga_language, '%ru%'), 'RU',
-		ilike(ga_language, '%de%'), 'DE',
-		ilike(ga_language, '%en%'), 'EN',
-		'Others'
-	  ) AS language_group
-	, halfMD5(language_group) AS language_group_id	  
+	  halfMD5(ga_language_group) AS language_group_id
+	, ga_language_group
     
 FROM {{ ref('stg_languages') }}

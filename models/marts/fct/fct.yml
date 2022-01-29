@@ -1,0 +1,39 @@
+
+version: 2
+
+models:
+
+  - name: fct_events
+    description: ""
+    tests:
+      - unique:
+          column_name: session_id
+          severity: warn    
+
+  - name: fct_goals
+    description: ""
+    tests:
+      - unique:
+          column_name: session_id
+          severity: warn    
+
+  - name: fct_pageviews
+    description: ""
+    tests:
+      - unique:
+          column_name: session_id
+          severity: warn    
+
+  - name: fct_seances
+    description: ""
+    tests:
+      - unique:
+          column_name: session_id
+          severity: warn    
+
+  - name: fct_transactions
+    description: ""
+    tests:
+      - unique:
+          column_name: session_id
+          severity: warn    

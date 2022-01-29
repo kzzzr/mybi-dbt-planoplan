@@ -4,7 +4,7 @@ sources:
 
   - name: ga
     # database: planoplan
-    schema: planoplan
+    schema: planoplan_mybi
     tags: ["sources", "ga"]      
     # freshness:
     #   warn_after: {count: 12, period: hour}

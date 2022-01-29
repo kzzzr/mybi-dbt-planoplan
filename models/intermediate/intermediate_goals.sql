@@ -40,7 +40,7 @@ SELECT
     	WHEN 'ga_goal8' THEN 'Посещение страницы проекта (ALL)'
     	WHEN 'ga_goal9' THEN 'Успешная оплата'
     	WHEN 'ga_goal13' THEN 'Улучшение тарифа (успешная оплата)'
-    	ELSE ''
+    	ELSE tpl.1
       END AS ga_goal_name	    
     , cast(tpl.2 as UInt8) AS ga_goal_reaches
 
