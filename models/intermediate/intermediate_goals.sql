@@ -3,9 +3,9 @@ WITH goals AS (
 
     SELECT
 
-          session_id
+          key_dt_session_id
         , dt
-        , ga_dimension13
+        , session_id
 
         , ga_goal1completions as ga_goal1
         , ga_goal2completions as ga_goal2
@@ -24,9 +24,9 @@ WITH goals AS (
 
 SELECT
 
-      session_id
+      key_dt_session_id
     , dt
-    , ga_dimension13
+    , session_id
 
     , tpl.1 AS ga_goal_id
     , CASE tpl.1

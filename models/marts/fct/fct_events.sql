@@ -1,14 +1,20 @@
 
 SELECT
+    
+      et.dt as dt
+
+    -- идентификатор события - Events
+	, et.ga_eventvalue as ga_eventvalue
+	, et.ga_totalevents as ga_totalevents
+	, et.ga_uniqueevents as ga_uniqueevents    
 
     -- идентификатор сессии - Session
-      et.session_id as session_id
-    , et.dt as dt
-	, et.ga_dimension13 as ga_dimension13
+    , et.key_dt_session_id as key_dt_session_id
+	, et.session_id as session_id
     -- , 'events' as _row_source
 
     -- идентификатор источника трафика - Traffic sources
-    , halfMD5(ts.ga_channelgrouping, ts.ga_source, ts.ga_medium) as traffic_source_id
+    , halfMD5(ts.ga_channelgrouping, ts.ga_source, ts.ga_medium, ts.ga_campaign, ts.ga_adcontent, ts.ga_keyword, ts.ga_fullreferrer) as traffic_source_id
     -- , ts.ga_channelgrouping as ga_channelgrouping
     -- , ts.ga_source as ga_source
     -- , ts.ga_medium as ga_medium
@@ -55,10 +61,6 @@ SELECT
 	-- , et.ga_eventcategory as ga_eventcategory
 	-- , et.ga_eventaction as ga_eventaction
 	-- , et.ga_eventlabel as ga_eventlabel
-
-	, et.ga_eventvalue as ga_eventvalue
-	, et.ga_totalevents as ga_totalevents
-	, et.ga_uniqueevents as ga_uniqueevents
 
 
 from {{ ref('stg_events') }} as et

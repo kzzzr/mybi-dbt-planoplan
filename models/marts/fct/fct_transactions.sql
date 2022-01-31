@@ -1,14 +1,20 @@
 
 SELECT
 
+      tr.dt as dt
+
+    -- идентификатор транзакции - Transactions
+	, tr.ga_transactions as ga_transactions
+	, tr.ga_transactionid as ga_transactionid
+	, tr.ga_transactionrevenue as ga_transactionrevenue      
+
     -- идентификатор сессии - Session    
-      tr.session_id as session_id
-    , tr.dt as dt
-	, tr.ga_dimension13 as ga_dimension13
+    , tr.key_dt_session_id as key_dt_session_id
+	, tr.session_id as session_id   
     -- , 'transactions' as _row_source    
 
     -- идентификатор источника трафика - Traffic sources
-    , halfMD5(ts.ga_channelgrouping, ts.ga_source, ts.ga_medium) as traffic_source_id
+    , halfMD5(ts.ga_channelgrouping, ts.ga_source, ts.ga_medium, ts.ga_campaign, ts.ga_adcontent, ts.ga_keyword, ts.ga_fullreferrer) as traffic_source_id
     -- , ts.ga_channelgrouping as ga_channelgrouping
     -- , ts.ga_source as ga_source
     -- , ts.ga_medium as ga_medium
@@ -49,11 +55,6 @@ SELECT
 
     -- идентификатор пользователя
 	, us.ga_dimension4 as user_id
-
-    -- идентификатор транзакции - Transactions
-	, tr.ga_transactions as ga_transactions
-	, tr.ga_transactionid as ga_transactionid
-	, tr.ga_transactionrevenue as ga_transactionrevenue
 
 from {{ ref('stg_transactions') }} as tr
     left any join {{ ref('intermediate_traffic_sources') }} as ts on tr.session_id = ts.session_id

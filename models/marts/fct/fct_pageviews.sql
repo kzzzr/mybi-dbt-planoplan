@@ -1,14 +1,23 @@
 
 SELECT
 
-    -- идентификатор сессии - Session
-      pv.session_id as session_id
-    , pv.dt as dt
-	, pv.ga_dimension13 as ga_dimension13
+      pv.dt as dt
+
+    -- идентификатор просмотра - Page Views
+	, pv.ga_pageviews as ga_pageviews
+	, pv.ga_timeonpage as ga_timeonpage
+	, pv.ga_entrances as ga_entrances
+	, pv.ga_exits as ga_exits
+	, pv.ga_pagepath as ga_pagepath
+	, pv.ga_pagetitle as ga_pagetitle
+
+    -- идентификатор сессии - Session 
+    , pv.key_dt_session_id as key_dt_session_id
+	, pv.session_id as session_id    
     -- , 'pageviews' as _row_source    
 
     -- идентификатор источника трафика - Traffic sources
-    , halfMD5(ts.ga_channelgrouping, ts.ga_source, ts.ga_medium) as traffic_source_id
+    , halfMD5(ts.ga_channelgrouping, ts.ga_source, ts.ga_medium, ts.ga_campaign, ts.ga_adcontent, ts.ga_keyword, ts.ga_fullreferrer) as traffic_source_id
     -- , ts.ga_channelgrouping as ga_channelgrouping
     -- , ts.ga_source as ga_source
     -- , ts.ga_medium as ga_medium
@@ -49,14 +58,6 @@ SELECT
 
     -- идентификатор пользователя
 	, us.ga_dimension4 as user_id
-
-    -- идентификатор просмотра - Page Views
-	, pv.ga_pageviews as ga_pageviews
-	, pv.ga_timeonpage as ga_timeonpage
-	, pv.ga_entrances as ga_entrances
-	, pv.ga_exits as ga_exits
-	, pv.ga_pagepath as ga_pagepath
-	, pv.ga_pagetitle as ga_pagetitle
 
 from {{ ref('stg_pageviews') }} as pv
     left any join {{ ref('stg_seances') }} as s on pv.session_id = s.session_id

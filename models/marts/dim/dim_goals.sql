@@ -25,7 +25,7 @@ SELECT DISTINCT
     	WHEN 'ga_goal1' THEN 'Регистрация'
     	WHEN 'ga_goal2' THEN 'Подтверждение регистрации'
     	WHEN 'ga_goal3' THEN 'Посещение страницы Магазин'
-    	WHEN 'ga_goal4' THEN 'Управление тарифо'
+    	WHEN 'ga_goal4' THEN 'Управление тарифом'
     	WHEN 'ga_goal5' THEN 'Скачан инсталлятор'
     	WHEN 'ga_goal6' THEN 'Работал в Web'
     	WHEN 'ga_goal7' THEN 'Работал в Standalone'

@@ -1,0 +1,13 @@
+
+version: 2
+
+models:
+
+  - name: dim_traffic_source
+    description: ""
+    tests:
+      - not_null:
+          column_name: traffic_source_id
+      - unique:
+          column_name: traffic_source_id
+          severity: warn    

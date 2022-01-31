@@ -1,14 +1,20 @@
 
 SELECT
 
+      s.dt as dt
+
     -- идентификатор сессии - Session
-      s.session_id as session_id
-    , s.dt as dt
-	, s.ga_dimension13 as ga_dimension13
+	, s.ga_sessions as ga_sessions
+	, s.ga_bounces as ga_bounces
+	, s.ga_sessionduration as ga_sessionduration
+
+    -- идентификатор сессии - Session
+    , s.key_dt_session_id as key_dt_session_id
+	, s.session_id as session_id   
     -- , 'seances' as _row_source    
 
     -- идентификатор источника трафика - Traffic sources
-    , halfMD5(ts.ga_channelgrouping, ts.ga_source, ts.ga_medium) as traffic_source_id
+    , halfMD5(ts.ga_channelgrouping, ts.ga_source, ts.ga_medium, ts.ga_campaign, ts.ga_adcontent, ts.ga_keyword, ts.ga_fullreferrer) as traffic_source_id
     -- , ts.ga_channelgrouping as ga_channelgrouping
     -- , ts.ga_source as ga_source
     -- , ts.ga_medium as ga_medium
@@ -49,11 +55,6 @@ SELECT
 
     -- идентификатор пользователя
 	, us.ga_dimension4 as user_id
-
-    -- идентификатор сессии - Session
-	, s.ga_sessions as ga_sessions
-	, s.ga_bounces as ga_bounces
-	, s.ga_sessionduration as ga_sessionduration
 
 
 from {{ ref('stg_seances') }} as s

@@ -6,11 +6,8 @@ models:
   - name: intermediate_traffic_sources
     description: ""
     tests:
-      - unique:
-          column_name: (session_id || ga_channelgrouping || ga_source || ga_medium)    
-          severity: warn    
     columns:
-      - name: session_id
+      - name: key_dt_session_id
         description: ""
         tests:
           - unique:

@@ -31,12 +31,12 @@ models:
         
         staging:
             +tags: ["staging"]
-            order_by: ["session_id"]
+            order_by: ["key_dt_session_id"]
             partition_by: ["toYYYYMM(dt)"]            
         
         intermediate:
             +tags: ["intermediate"]
-            order_by: ["session_id"]
+            order_by: ["key_dt_session_id"]
             partition_by: ["toYYYYMM(dt)"]            
       
         marts:
@@ -49,7 +49,7 @@ models:
                 # normalized fact tables
                 +enabled: True
                 tags: ["fct"]
-                order_by: ["session_id"]
+                order_by: ["key_dt_session_id"]
                 partition_by: ["toYYYYMM(dt)"]            
 
             facts:

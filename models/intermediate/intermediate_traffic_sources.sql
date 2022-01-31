@@ -4,8 +4,9 @@ WITH traffic_sources_utm AS (
 
     SELECT
         
-        session_id
+          key_dt_session_id
         , dt
+        , session_id
 
         , ga_channelgrouping
         , ga_source
@@ -24,8 +25,9 @@ WITH traffic_sources_utm AS (
 
     SELECT
 
-        session_id
+          key_dt_session_id
         , dt
+        , session_id
 
         , ga_channelgrouping	  
         , ga_source
@@ -41,6 +43,7 @@ WITH traffic_sources_utm AS (
 SELECT
 	
 	  coalesce(a.dt, b.dt) as dt
+    , coalesce(a.key_dt_session_id, b.key_dt_session_id) as key_dt_session_id
     , coalesce(a.session_id, b.session_id) as session_id
 
 	, coalesce(a.ga_channelgrouping, b.ga_channelgrouping) as ga_channelgrouping
@@ -55,7 +58,7 @@ SELECT
 	, b.ga_sourcemedium as ga_sourcemedium
 
 FROM traffic_sources_utm AS a
-	FULL OUTER JOIN traffic_sources_full_path AS b ON a.session_id = b.session_id
+	FULL OUTER JOIN traffic_sources_full_path AS b ON a.key_dt_session_id = b.key_dt_session_id
 		AND a.ga_channelgrouping = b.ga_channelgrouping
 		AND a.ga_source = b.ga_source
 		AND a.ga_medium = b.ga_medium

@@ -1,14 +1,20 @@
 
 SELECT
 
+      gl.dt as dt
+
+    -- идентификатор цели - Goals
+    , gl.ga_goal_reaches as ga_goal_reaches
+	, gl.ga_goal_id as goal_id
+	-- , gl.ga_goal_name as ga_goal_name    
+
     -- идентификатор сессии - Session
-      gl.session_id as session_id
-    , gl.dt as dt
-	, gl.ga_dimension13 as ga_dimension13
+	, gl.key_dt_session_id as key_dt_session_id
+    , gl.session_id as session_id
     -- , 'goals' as _row_source    
 
     -- идентификатор источника трафика - Traffic sources
-    , halfMD5(ts.ga_channelgrouping, ts.ga_source, ts.ga_medium) as traffic_source_id
+    , halfMD5(ts.ga_channelgrouping, ts.ga_source, ts.ga_medium, ts.ga_campaign, ts.ga_adcontent, ts.ga_keyword, ts.ga_fullreferrer) as traffic_source_id
     -- , ts.ga_channelgrouping as ga_channelgrouping
     -- , ts.ga_source as ga_source
     -- , ts.ga_medium as ga_medium
@@ -49,13 +55,7 @@ SELECT
 
     -- идентификатор пользователя
 	, us.ga_dimension4 as user_id
-
-    -- идентификатор цели - Goals
-	, gl.ga_goal_id as goal_id
-	-- , gl.ga_goal_name as ga_goal_name
 	
-    , gl.ga_goal_reaches as ga_goal_reaches    
-
 from {{ ref('intermediate_goals') }} as gl
     left any join {{ ref('stg_seances') }} as s on gl.session_id = s.session_id
     left any join {{ ref('intermediate_traffic_sources') }} as ts on gl.session_id = ts.session_id
@@ -63,3 +63,5 @@ from {{ ref('intermediate_goals') }} as gl
     left any join {{ ref('stg_devices') }} as dvc on gl.session_id = dvc.session_id
     left any join {{ ref('stg_languages') }} as lg on gl.session_id = lg.session_id
     left any join {{ ref('stg_users') }} as us on gl.session_id = us.session_id
+
+where gl.ga_goal_reaches > 0 
