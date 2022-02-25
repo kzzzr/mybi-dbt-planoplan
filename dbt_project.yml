@@ -50,6 +50,7 @@ models:
         
         intermediate:
             +tags: ["intermediate"]
+            +schema: "intermediate"
             order_by: ["key_dt_session_id"]
             partition_by: ["toYYYYMM(dt)"]            
       
