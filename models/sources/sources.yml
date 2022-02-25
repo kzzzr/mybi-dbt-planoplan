@@ -120,6 +120,35 @@ sources:
 
     tables:
 
-      - name: tasks
-        identifier: _airbyte_raw_tasks
+      - name: render_tasks
+        identifier: 
+      - name: events
+        identifier: _airbyte_raw_events
+      - name: payments
+        identifier: _airbyte_raw_payments
+      - name: users
+        identifier: _airbyte_raw_users
+      - name: store_goods
+        identifier: _airbyte_raw_store_goods
+      - name: store_sets
+        identifier: _airbyte_raw_store_sets
+      - name: tariffs
+        identifier: _airbyte_raw_tariffs
+      - name: tariffs_stat
+        identifier: _airbyte_raw_tariffs_stat
+      - name: clients
+        identifier: _airbyte_raw_clients
+      - name: teams
+        identifier: _airbyte_raw_teams
+      - name: promocodes
+        identifier: _airbyte_raw_promocodes
+
+
+
+
+
+
+
+
+
 
