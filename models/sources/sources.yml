@@ -104,8 +104,8 @@ sources:
         description: "GA_Платформа"
 
   - name: render
-    schema: postgresql
-    tags: ["sources", "postgresql"]      
+    schema: postgres
+    tags: ["sources", "postgres"]      
     description: "PostgreSQL CRM database 'render'"
 
     tables:
@@ -114,14 +114,14 @@ sources:
         identifier: _airbyte_raw_tasks
 
   - name: planoplan
-    schema: postgresql
-    tags: ["sources", "postgresql"]      
+    schema: postgres
+    tags: ["sources", "postgres"]      
     description: "PostgreSQL CRM database 'planoplan'"
 
     tables:
 
-      - name: render_tasks
-        identifier: 
+      # - name: render_tasks
+      #   identifier: 
       - name: events
         identifier: _airbyte_raw_events
       - name: payments

@@ -28,7 +28,13 @@ models:
     mybi_dbt_planoplan:
         +materialized: table
         +tags: ["planoplan"]
-        
+
+        postgres:
+            +tags: ["postgres"]
+            +schema: "postgres"
+            +tags: ["postgres"]
+            order_by: ["tuple()"]
+
         flatten:
             +tags: ["flatten"]
             +schema: "flatten"
