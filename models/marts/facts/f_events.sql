@@ -56,7 +56,7 @@ SELECT
 
 from {{ ref('stg_events') }} as et
     left any join {{ ref('stg_seances') }} as s on et.session_id = s.session_id
-    left any join {{ ref('intermediate_traffic_sources') }} as ts on et.session_id = ts.session_id
+    left any join {{ ref('int_traffic_sources') }} as ts on et.session_id = ts.session_id
     left any join {{ ref('stg_places') }} as pl on et.session_id = pl.session_id
     left any join {{ ref('stg_devices') }} as dvc on et.session_id = dvc.session_id
     left any join {{ ref('stg_languages') }} as lg on et.session_id = lg.session_id

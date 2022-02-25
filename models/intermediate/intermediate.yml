@@ -3,7 +3,7 @@ version: 2
 
 models:
 
-  - name: intermediate_traffic_sources
+  - name: int_traffic_sources
     description: ""
     tests:
     columns:

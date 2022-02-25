@@ -49,9 +49,9 @@ SELECT
 	, gl.ga_goal_name as ga_goal_name
 	, gl.ga_goal_reaches as ga_goal_reaches    
 
-from {{ ref('intermediate_goals') }} as gl
+from {{ ref('int_goals') }} as gl
     left any join {{ ref('stg_seances') }} as s on gl.session_id = s.session_id
-    left any join {{ ref('intermediate_traffic_sources') }} as ts on gl.session_id = ts.session_id
+    left any join {{ ref('int_traffic_sources') }} as ts on gl.session_id = ts.session_id
     left any join {{ ref('stg_places') }} as pl on gl.session_id = pl.session_id
     left any join {{ ref('stg_devices') }} as dvc on gl.session_id = dvc.session_id
     left any join {{ ref('stg_languages') }} as lg on gl.session_id = lg.session_id

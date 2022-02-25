@@ -2,17 +2,18 @@ version: 2
 
 sources:
 
-  - name: ga
+  - name: hist
     # database: planoplan
-    schema: planoplan_mybi
+    schema: mybi
     tags: ["sources", "ga"]      
     # freshness:
     #   warn_after: {count: 12, period: hour}
     #   error_after: {count: 24, period: hour}
     # loaded_at_field: created_at
-    description: ""
+    description: "myBI database with historical data"
 
     tables:
+
       - name: seances
         identifier: analytics_report_31267
         description: "GA_Сеансы"
@@ -49,3 +50,76 @@ sources:
       - name: registration_polls
         identifier: analytics_report_33098
         description: "GA_Опрос при регистрации"
+
+  - name: mybi
+    # database: planoplan
+    schema: mybi
+    tags: ["sources", "ga"]      
+    # freshness:
+    #   warn_after: {count: 12, period: hour}
+    #   error_after: {count: 24, period: hour}
+    # loaded_at_field: created_at
+    description: "myBI database with historical data"
+
+    tables:
+
+      - name: seances
+        identifier: _airbyte_raw_analytics_report_49158
+        description: "GA_Сеансы"
+      - name: pageviews
+        identifier: _airbyte_raw_analytics_report_49166
+        description: "GA_Просмотры страниц"
+      - name: events
+        identifier: _airbyte_raw_analytics_report_49150
+        description: "GA_События"
+      - name: traffic_sources_utm
+        identifier: _airbyte_raw_analytics_report_49134
+        description: "GA_Источники трафика (все utm)"
+      - name: devices
+        identifier: _airbyte_raw_analytics_report_49194
+        description: "GA_Устройства"
+      - name: places
+        identifier: _airbyte_raw_analytics_report_49195
+        description: "GA_Местоположение"
+      - name: languages
+        identifier: _airbyte_raw_analytics_report_49196
+        description: "GA_Язык"
+      - name: goals
+        identifier: _airbyte_raw_analytics_report_49169
+        description: "GA_Цели"
+      - name: transactions
+        identifier: _airbyte_raw_analytics_report_49184
+        description: "GA_Транзакции"
+      - name: users
+        identifier: _airbyte_raw_analytics_report_49168
+        description: "GA_Параметры посетителей"
+      - name: traffic_sources_full_path
+        identifier: _airbyte_raw_analytics_report_49135
+        description: "GA_Источники трафика (полный путь)"
+      - name: registration_polls
+        identifier: _airbyte_raw_analytics_report_49185
+        description: "GA_Опрос при регистрации"
+      - name: platforms
+        identifier: _airbyte_raw_analytics_report_49901
+        description: "GA_Платформа"
+
+  - name: render
+    schema: postgresql
+    tags: ["sources", "postgresql"]      
+    description: "PostgreSQL CRM database 'render'"
+
+    tables:
+
+      - name: tasks
+        identifier: _airbyte_raw_tasks
+
+  - name: planoplan
+    schema: postgresql
+    tags: ["sources", "postgresql"]      
+    description: "PostgreSQL CRM database 'planoplan'"
+
+    tables:
+
+      - name: tasks
+        identifier: _airbyte_raw_tasks
+

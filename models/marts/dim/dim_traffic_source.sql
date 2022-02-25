@@ -13,4 +13,4 @@ SELECT DISTINCT
 	, ga_fullreferrer
 	, ga_sourcemedium
 
-FROM {{ ref('intermediate_traffic_sources') }}
+FROM {{ ref('int_traffic_sources') }}

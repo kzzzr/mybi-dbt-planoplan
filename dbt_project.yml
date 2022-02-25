@@ -29,7 +29,15 @@ models:
         +materialized: table
         +tags: ["planoplan"]
         
+        flatten:
+            +tags: ["flatten"]
+            +schema: "flatten"
+            +tags: ["flatten"]
+            order_by: ["ga_dimension13"]
+
         staging:
+            +tags: ["staging"]
+            +schema: "staging"
             +tags: ["staging"]
             order_by: ["key_dt_session_id"]
             partition_by: ["toYYYYMM(dt)"]            
@@ -54,7 +62,7 @@ models:
 
             facts:
                 # denormalized fact tables
-                +enabled: True
+                +enabled: False
                 tags: ["facts"]
                 order_by: ["session_id"]
                 partition_by: ["toYYYYMM(dt)"]

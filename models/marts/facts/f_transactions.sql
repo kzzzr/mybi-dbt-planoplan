@@ -50,7 +50,7 @@ SELECT
 	, tr.ga_transactionrevenue as ga_transactionrevenue
 
 from {{ ref('stg_transactions') }} as tr
-    left any join {{ ref('intermediate_traffic_sources') }} as ts on tr.session_id = ts.session_id
+    left any join {{ ref('int_traffic_sources') }} as ts on tr.session_id = ts.session_id
     left any join {{ ref('stg_places') }} as pl on tr.session_id = pl.session_id
     left any join {{ ref('stg_devices') }} as dvc on tr.session_id = dvc.session_id
     left any join {{ ref('stg_languages') }} as lg on tr.session_id = lg.session_id
