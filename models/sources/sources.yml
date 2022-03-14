@@ -120,8 +120,8 @@ sources:
 
     tables:
 
-      # - name: render_tasks
-      #   identifier: 
+      - name: render_tasks
+        identifier: render_tasks
       - name: events
         identifier: _airbyte_raw_events
       - name: payments
