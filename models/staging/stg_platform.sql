@@ -6,6 +6,11 @@ SELECT
 	, ga_sessions
 	, ga_dimension13 as session_id
 	
-	, ga_dimension8 as platform
+	, ga_dimension8
+	, multiIf(
+		ilike(ga_dimension8, '%platform:web%'), 'Web',
+		ilike(ga_dimension8, '%platform:standalone%'), 'Standalone',
+		'Not set'
+		) as platform
 	
 FROM {{ ref('flt_platform') }}
