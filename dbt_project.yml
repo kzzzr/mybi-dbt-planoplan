@@ -30,10 +30,14 @@ models:
         +tags: ["planoplan"]
 
         postgres:
+            +enabled: False
             +tags: ["postgres"]
             +schema: "postgres"
-            +tags: ["postgres"]
-            order_by: ["tuple()"]
+            +materialized: 'incremental'
+            +unique_key: '_airbyte_ab_id'
+            +engine: 'MergeTree()'
+            +order_by: ['_airbyte_ab_id', 'id']
+            +partition_by: 'toYYYYMM(created)'
 
         flatten:
             +tags: ["flatten"]

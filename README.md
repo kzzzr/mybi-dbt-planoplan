@@ -26,12 +26,14 @@ export DBT_SOURCE_SCHEMA=mybi
 
 ```bash
 export PGPASSWORD=''
+psql -h db.planoplan.com -p 5432 -U airbyte -d render
 psql -h db.planoplan.com -p 5432 -U airbyte -d planoplan
 
 # \COPY (SELECT * FROM public.render_tasks limit 3) TO 'render_tasks_binary' FORMAT binary 
 # \COPY (SELECT * FROM public.render_tasks limit 3) TO 'render_tasks_binary' DELIMITER ',' CSV HEADER" > export.csv
 # select count(1) from render_tasks;
-# \d render_tasks
+# \d clients
+# pg_dump -h db.planoplan.com -p 5432 -U airbyte -t 'public.tasks' --schema-only render
 
 SELECT pid, age(clock_timestamp(), query_start), usename, query, state
 FROM pg_stat_activity 
@@ -64,7 +66,7 @@ clickhouse-client \
 
 
 psql --dbname=planoplan --username=airbyte --host=db.planoplan.com \
--c "COPY (SELECT * FROM public.render_tasks limit 100) TO stdout DELIMITER ',' CSV HEADER" | \
+-c "COPY (SELECT * FROM public.render_tasks WHERE created >= '2019-01-01' limit 100) TO stdout DELIMITER ',' CSV HEADER" | \
 clickhouse-client \
 --host="rc1b-na7cwldhyrfft8bb.mdb.yandexcloud.net" \
 --port=9440 \
@@ -99,14 +101,22 @@ clickhouse-client \
 
 CREATE TABLE postgres.render_tasks
 (
-id                  UInt64                     
+id                    UInt64                     
 , created             String
 , modified            String
 , projects_id         UInt64                     
 , render_servers_id   UInt64                     
 , time_started        String
 , time_done           String
+
 , data                String
+, data_data String MATERIALIZED JSONExtract(`data`, 'data', 'String')
+, data_panoCamId String MATERIALIZED JSONExtract(`data`, 'panoCamId', 'String')
+, data_camInfo String MATERIALIZED JSONExtract(`data`, 'camInfo', 'String')
+, data_unityXML String MATERIALIZED JSONExtract(`data`, 'unityXML', 'String')
+, data_unityAdditionalXML String MATERIALIZED JSONExtract(`data`, 'unityAdditionalXML', 'String')
+, data_lang String MATERIALIZED JSONExtract(`data`, 'lang', 'String')
+
 , status              Int8                    
 , priority            Int64                     
 , attempts            Int8                    
@@ -133,9 +143,12 @@ id                  UInt64
 , preview_image       String
 , tariffs_id          UInt64                     
 , stat                String                        
-) ENGINE = ReplacingMergeTree()
+) ENGINE = MergeTree()
 ORDER BY id
+PARTITION BY toYYYYMM(parseDateTimeBestEffortOrZero(created))
 PRIMARY KEY id
+SETTINGS 
+index_granularity=100000
 ;
 
 select * from postgres.render_tasks limit 500 ;
@@ -168,7 +181,7 @@ get_target_cursor() {
         --password="" \
         --database="postgres" \
         --secure \
-        --query="SELECT max(id) FROM postgres.render_tasks" \
+        --query="SELECT coalesce(nullif(max(id), 0), 1833569) FROM postgres.render_tasks" \
         | cat
 }
 
