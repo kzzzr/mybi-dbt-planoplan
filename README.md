@@ -200,15 +200,19 @@ load_rows() {
         --password="" \
         --database="postgres" \
         --secure \
-        --max_memory_usage=200000000000 \
-        --max_insert_block_size=10000 \
+        --max_memory_usage=16000000000 \
+        --max_bytes_before_external_group_by=16000000000 \
+        --max_bytes_before_external_sort=16000000000 \
+        --max_memory_usage_for_all_queries=16000000000 \
+        --max_memory_usage_for_user=16000000000 \
+        --max_insert_block_size=1000 \
+        --input_format_parallel_parsing=0 \
         --query="INSERT INTO postgres.render_tasks FORMAT CSVWithNames"
-
     echo "$(date '+%Y-%m-%d %T') FINISH loading rows CURSOR between $1 and $2"
 }
 
 export PGPASSWORD=""
-STEP=3000
+STEP=1000
 
 echo "$(date '+%Y-%m-%d %T') GET cursor value from SOURCE"
 
@@ -219,6 +223,8 @@ echo "$(date '+%Y-%m-%d %T') GET cursor value from TARGET"
 
 CURSOR_TARGET="$(get_target_cursor)"
 printf "CURSOR_TARGET=$CURSOR_TARGET\n"
+
+# echo "$(date '+%Y-%m-%d %T') FETCHED to CSV file"
 
 for (( i=CURSOR_TARGET ; i<=CURSOR_SOURCE ; i+=STEP ))
   do 
