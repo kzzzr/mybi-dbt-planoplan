@@ -4,7 +4,7 @@ name: Deploy dbt project
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 5 * * *'
+    - cron: '30 10,22 * * *'
 
 jobs:
   dbt_deploy:
