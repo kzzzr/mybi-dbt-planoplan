@@ -4,11 +4,50 @@ version: 2
 models:
 
   - name: int_traffic_sources
-    description: ""
-    tests:
     columns:
       - name: key_dt_session_id
-        description: ""
+        tests:
+          - unique:
+              severity: warn
+          - not_null
+  - name: int_fct_events
+    columns:
+      - name: key_dt_session_id
+        tests:
+          - unique:
+              severity: warn
+          - not_null
+  - name: int_fct_goals
+    columns:
+      - name: key_dt_session_id
+        tests:
+          - unique:
+              severity: warn
+          - not_null
+  - name: int_fct_pageviews
+    columns:
+      - name: key_dt_session_id
+        tests:
+          - unique:
+              severity: warn
+          - not_null
+  - name: int_fct_seances
+    columns:
+      - name: key_dt_session_id
+        tests:
+          - unique:
+              severity: warn
+          - not_null
+  - name: int_fct_transactions
+    columns:
+      - name: key_dt_session_id
+        tests:
+          - unique:
+              severity: warn
+          - not_null
+  - name: int_goals
+    columns:
+      - name: key_dt_session_id
         tests:
           - unique:
               severity: warn
