@@ -24,6 +24,8 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_modules"
 
+on-run-start: "{{ optimize_postgres() }}"
+
 models:
     mybi_dbt_planoplan:
         +materialized: table
@@ -33,11 +35,6 @@ models:
             +enabled: False
             +tags: ["postgres"]
             +schema: "postgres"
-            +materialized: 'incremental'
-            +unique_key: '_airbyte_ab_id'
-            +engine: 'MergeTree()'
-            +order_by: ['_airbyte_ab_id', 'id']
-            +partition_by: 'toYYYYMM(created)'
 
         flatten:
             +tags: ["flatten"]
@@ -49,8 +46,10 @@ models:
             +tags: ["staging"]
             +schema: "staging"
             +tags: ["staging"]
+            engine: "ReplacingMergeTree()"
             order_by: ["key_dt_session_id"]
-            partition_by: ["toYYYYMM(dt)"]            
+            partition_by: ["toYYYYMM(dt)"]
+            +post-hook: "OPTIMIZE TABLE {{ this }} FINAL DEDUPLICATE"
         
         intermediate:
             +tags: ["intermediate"]

@@ -33,10 +33,10 @@ SELECT
 	, JSONExtract(_airbyte_data, 'vat', 'String') as `vat`
 	, JSONExtract(_airbyte_data, 'country', 'String') as `country`
 
-	, parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'created', 'String')) as `created`
-	, parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'modified', 'String')) as `modified`
-	, parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'paid_date', 'String')) as `paid_date`
-	, parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'deleted_at', 'String')) as `deleted_at`
+	, toString(parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'created', 'String'), 'UTC')) as `created`
+	, toString(parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'modified', 'String'), 'UTC')) as `modified`
+	, toString(parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'paid_date', 'String'), 'UTC')) as `paid_date`
+	, toString(parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'deleted_at', 'String'), 'UTC')) as `deleted_at`
 
 FROM postgres._airbyte_raw_payments
 ;

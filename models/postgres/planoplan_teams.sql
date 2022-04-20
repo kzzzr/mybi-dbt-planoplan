@@ -43,10 +43,10 @@ SELECT
 	, JSONExtract(_airbyte_data, 'stripe_customer', 'String') as `stripe_customer`
 	, JSONExtract(_airbyte_data, 'catalog_access_keys', 'String') as `catalog_access_keys`
 	
-	, parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'license_expire', 'String')) as `license_expire`
-	, parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'created', 'String')) as `created`
-	, parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'modified', 'String')) as `modified`
-	, parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'deleted_at', 'String')) as `deleted_at`
+	, toString(parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'license_expire', 'String'))) as `license_expire`
+	, toString(parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'created', 'String'))) as `created`
+	, toString(parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'modified', 'String'))) as `modified`
+	, toString(parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'deleted_at', 'String'))) as `deleted_at`
 
 FROM postgres._airbyte_raw_teams
 ;

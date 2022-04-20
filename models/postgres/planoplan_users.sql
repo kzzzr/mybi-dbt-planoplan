@@ -70,11 +70,11 @@ SELECT
 	, JSONExtract(_airbyte_data, 'stripe_customer', 'String') as `stripe_customer`
 	, JSONExtract(_airbyte_data, 'survey', 'String') as `survey`
 	, JSONExtract(_airbyte_data, 'logo', 'String') as `logo`
-	, parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'created', 'String')) as `created`
-	, parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'modified', 'String')) as `modified`
-	, parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'last_login', 'String')) as `last_login`
-	, parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'tariff_expire', 'String')) as `tariff_expire`
-	, parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'clear_session_before', 'String')) as `clear_session_before`
+	, toString(parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'created', 'String'))) as `created`
+	, toString(parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'modified', 'String'))) as `modified`
+	, toString(parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'last_login', 'String'))) as `last_login`
+	, toString(parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'tariff_expire', 'String'))) as `tariff_expire`
+	, toString(parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'clear_session_before', 'String'))) as `clear_session_before`
 
 FROM postgres._airbyte_raw_users
 ;

@@ -15,8 +15,8 @@ SELECT
 	, JSONExtract(_airbyte_data, 'archive', 'String') as `archive`
 	, JSONExtract(_airbyte_data, 'limitations_email', 'String') as `limitations_email`
 
-	, parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'active_from', 'String')) as `active_from`
-	, parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'active_to', 'String')) as `active_to`
+	, toString(parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'active_from', 'String'))) as `active_from`
+	, toString(parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'active_to', 'String'))) as `active_to`
 
 FROM postgres._airbyte_raw_promocodes
 ;

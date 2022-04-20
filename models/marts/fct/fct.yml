@@ -4,36 +4,43 @@ version: 2
 models:
 
   - name: fct_events
-    description: ""
-    tests:
-      - unique:
-          column_name: session_id
-          severity: warn    
+    columns:
+      - name: key_dt_session_id
+        tests:
+          - unique:
+              severity: warn
+          - not_null
 
   - name: fct_goals
-    description: ""
+    columns:
+      - name: key_dt_session_id
+        tests:
+          - not_null 
     tests:
       - unique:
-          column_name: session_id
-          severity: warn    
+          column_name: (key_dt_session_id || goal_id)
+          severity: warn          
 
   - name: fct_pageviews
-    description: ""
-    tests:
-      - unique:
-          column_name: session_id
-          severity: warn    
+    columns:
+      - name: key_dt_session_id
+        tests:
+          - unique:
+              severity: warn
+          - not_null   
 
   - name: fct_seances
-    description: ""
-    tests:
-      - unique:
-          column_name: session_id
-          severity: warn    
+    columns:
+      - name: key_dt_session_id
+        tests:
+          - unique:
+              severity: warn
+          - not_null
 
   - name: fct_transactions
-    description: ""
-    tests:
-      - unique:
-          column_name: session_id
-          severity: warn    
+    columns:
+      - name: key_dt_session_id
+        tests:
+          - unique:
+              severity: warn
+          - not_null 

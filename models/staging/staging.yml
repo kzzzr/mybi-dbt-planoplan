@@ -6,7 +6,7 @@ models:
   - name: stg_devices
     description: ""
     columns:
-      - name: session_id
+      - name: key_dt_session_id
         description: ""
         tests:
           - unique:
@@ -16,7 +16,7 @@ models:
   - name: stg_events
     description: ""
     columns:
-      - name: session_id
+      - name: key_dt_session_id
         description: ""
         tests:
           - unique:
@@ -26,7 +26,7 @@ models:
   - name: stg_goals
     description: ""
     columns:
-      - name: session_id
+      - name: key_dt_session_id
         description: ""
         tests:
           - unique:
@@ -36,7 +36,7 @@ models:
   - name: stg_languages
     description: ""
     columns:
-      - name: session_id
+      - name: key_dt_session_id
         description: ""
         tests:
           - unique:
@@ -46,7 +46,7 @@ models:
   - name: stg_pageviews
     description: ""
     columns:
-      - name: session_id
+      - name: key_dt_session_id
         description: ""
         tests:
           - unique:
@@ -56,7 +56,7 @@ models:
   - name: stg_places
     description: ""
     columns:
-      - name: session_id
+      - name: key_dt_session_id
         description: ""
         tests:
           - unique:
@@ -66,7 +66,7 @@ models:
   - name: stg_registration_polls
     description: ""
     columns:
-      - name: session_id
+      - name: key_dt_session_id
         description: ""
         tests:
           - unique:
@@ -76,7 +76,7 @@ models:
   - name: stg_seances
     description: ""
     columns:
-      - name: session_id
+      - name: key_dt_session_id
         description: ""
         tests:
           - unique:
@@ -85,36 +85,28 @@ models:
 
   - name: stg_traffic_sources_full_path
     description: ""
-    tests:
-      - unique:
-          column_name: (session_id || ga_channelgrouping || ga_source || ga_medium)
-          severity: warn
     columns:
-      - name: session_id
+      - name: key_dt_session_id
         description: ""
         tests:
-          # - unique:`
-              # severity: warn
+          - unique:
+              severity: warn
           - not_null
 
   - name: stg_traffic_sources_utm
     description: ""
-    tests:
-      - unique:
-          column_name: (session_id || ga_channelgrouping || ga_source || ga_medium)    
-          severity: warn
     columns:
-      - name: session_id
+      - name: key_dt_session_id
         description: ""
         tests:
-          # - unique:
-              # severity: warn
+          - unique:
+              severity: warn
           - not_null
 
   - name: stg_transactions
     description: ""
     columns:
-      - name: session_id
+      - name: key_dt_session_id
         description: ""
         tests:
           - unique:
@@ -124,7 +116,7 @@ models:
   - name: stg_users
     description: ""
     columns:
-      - name: session_id
+      - name: key_dt_session_id
         description: ""
         tests:
           - unique:

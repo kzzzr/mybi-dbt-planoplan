@@ -14,7 +14,7 @@ SELECT
 	, JSONExtract(_airbyte_data, 'ip', 'String') as `ip`
 	, JSONExtract(_airbyte_data, 'user_agent', 'String') as `user_agent`
 	, JSONExtract(_airbyte_data, 'teams_id', 'UInt32') as `teams_id`
-	, parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'created', 'String')) as `created`
+	, toString(parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'created', 'String'))) as `created`
 
 FROM postgres._airbyte_raw_events
 ;

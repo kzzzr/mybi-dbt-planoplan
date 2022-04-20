@@ -41,9 +41,9 @@ SELECT
     , JSONExtract(_airbyte_data, 'max_gpu_memory_usage', 'UInt32') as `max_gpu_memory_usage`
     , JSONExtract(_airbyte_data, 'logfile', 'String') as `logfile`
 
-    , parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'created', 'String')) as `created`
-    , parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'time_started', 'String')) as `time_started`
-    , parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'time_done', 'String')) as `time_done`
+    , toString(parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'created', 'String'))) as `created`
+    , toString(parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'time_started', 'String'))) as `time_started`
+    , toString(parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'time_done', 'String'))) as `time_done`
 
 FROM postgres._airbyte_raw_tasks
 ;

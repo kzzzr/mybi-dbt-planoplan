@@ -7,7 +7,7 @@ PRIMARY KEY id
 POPULATE AS
 SELECT
 
-	 JSONExtract(_airbyte_data, 'id', 'UInt32') as `id`
+	  JSONExtract(_airbyte_data, 'id', 'UInt32') as `id`
 	, JSONExtract(_airbyte_data, 'alias', 'String') as `alias`
 	, JSONExtract(_airbyte_data, 'caption', 'String') as `caption`
 	, JSONExtract(_airbyte_data, 'params', 'String') as `params`

@@ -12,7 +12,7 @@ SELECT
 	, JSONExtract(_airbyte_data, 'tariffs_id', 'UInt32') as `tariffs_id`
 	, JSONExtract(_airbyte_data, 'cnt', 'UInt32') as `cnt`
 	
-	, parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'created', 'String')) as `created`
+	, toString(parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'created', 'String'))) as `created`
 
 FROM postgres._airbyte_raw_tariffs_stat
 ;

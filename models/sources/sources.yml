@@ -143,6 +143,98 @@ sources:
       - name: promocodes
         identifier: _airbyte_raw_promocodes
 
+  - name: planoplan_mv
+    schema: planoplan_postgres
+    tags: ["sources", "postgres"]      
+    description: "Materialized Views on top of Postgres tables"
+
+    tables:
+
+      - name: tasks
+        identifier: render_tasks
+        columns:
+          - name: id
+            tests:
+                - not_null
+                - unique          
+      - name: render_tasks
+        identifier: planoplan_render_tasks
+        columns:
+          - name: id
+            tests:
+                - not_null
+                - unique          
+      - name: events
+        identifier: planoplan_events
+        columns:
+          - name: id
+            tests:
+                - not_null
+                - unique            
+      - name: payments
+        identifier: planoplan_payments
+        columns:
+          - name: id
+            tests:
+                - not_null
+                - unique            
+      - name: users
+        identifier: planoplan_users
+        columns:
+          - name: id
+            tests:
+                - not_null
+                - unique            
+      - name: store_goods
+        identifier: planoplan_store_goods
+        columns:
+          - name: id
+            tests:
+                - not_null
+                - unique            
+      - name: store_sets
+        identifier: planoplan_store_sets
+        columns:
+          - name: id
+            tests:
+                - not_null
+                - unique            
+      - name: tariffs
+        identifier: planoplan_tariffs
+        columns:
+          - name: id
+            tests:
+                - not_null
+                - unique            
+      - name: tariff_stat
+        identifier: planoplan_tariff_stat
+        columns:
+          - name: id
+            tests:
+                - not_null
+                - unique            
+      - name: clients
+        identifier: planoplan_clients
+        columns:
+          - name: id
+            tests:
+                - not_null
+                - unique            
+      - name: teams
+        identifier: planoplan_teams
+        columns:
+          - name: id
+            tests:
+                - not_null
+                - unique            
+      - name: promocodes
+        identifier: planoplan_promocodes
+        columns:
+          - name: id
+            tests:
+                - not_null
+                - unique            
+
 
 
 

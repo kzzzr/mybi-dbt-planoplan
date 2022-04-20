@@ -1,4 +1,4 @@
-SELECT
+SELECT DISTINCT
 
 	  concat(CAST(CAST(parseDateTime32BestEffortOrNull(simple_date) AS DATE) AS String), ':', ga_dimension13) AS key_dt_session_id	  
 	, CAST(parseDateTime32BestEffortOrNull(simple_date) AS DATE) AS dt
@@ -12,7 +12,7 @@ FROM {{ source('hist', 'transactions') }}
 
 UNION ALL 
 
-SELECT
+SELECT DISTINCT
 
 	  concat(CAST(CAST(parseDateTime32BestEffortOrNull(simple_date) AS DATE) AS String), ':', ga_dimension13) AS key_dt_session_id	  
 	, CAST(parseDateTime32BestEffortOrNull(simple_date) AS DATE) AS dt

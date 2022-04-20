@@ -8,14 +8,12 @@ PRIMARY KEY id
 POPULATE AS
 SELECT
 
-SELECT
-
       id
 
-	, parseDateTimeBestEffortOrZero(created) as created
-	, parseDateTimeBestEffortOrZero(modified) as modified
-	, parseDateTimeBestEffortOrZero(time_started) as time_started
-	, parseDateTimeBestEffortOrZero(time_done) as time_done
+	, toString(parseDateTimeBestEffortOrZero(created)) as created
+	, toString(parseDateTimeBestEffortOrZero(modified)) as modified
+	, toString(parseDateTimeBestEffortOrZero(time_started)) as time_started
+	, toString(parseDateTimeBestEffortOrZero(time_done)) as time_done
 
 	, projects_id
 	, render_servers_id

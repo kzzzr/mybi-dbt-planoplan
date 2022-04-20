@@ -35,8 +35,8 @@ SELECT
 	, JSONExtract(_airbyte_data, 'secret', 'String') as `secret`
 	, JSONExtract(_airbyte_data, 'task_callback_status_url', 'String') as `task_callback_status_url`
 	, JSONExtract(_airbyte_data, 'tariffs_id', 'UInt32') as `tariffs_id`
-	, parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'tariff_expire', 'String')) as tariff_expire
-	, parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'deleted_at', 'String')) as deleted_at
+	, toString(parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'tariff_expire', 'String'))) as tariff_expire
+	, toString(parseDateTimeBestEffortOrZero(JSONExtract(_airbyte_data, 'deleted_at', 'String'))) as deleted_at
 	, JSONExtract(_airbyte_data, 'textures', 'String') as `textures`
 	, JSONExtract(_airbyte_data, 'lot_groups', 'String') as `lot_groups`
 	, JSONExtract(_airbyte_data, 'disk_space', 'UInt32') as `disk_space`
