@@ -21,14 +21,15 @@ jobs:
           DBT_USER: ${{ secrets.DBT_USER }}
           DBT_PASSWORD: ${{ secrets.DBT_PASSWORD }}
           DBT_SECURE: ${{ secrets.DBT_SECURE }}
-      - name: Setup tmate session
-        if: ${{ failure() }}
-        uses: mxschmitt/action-tmate@v3
-        timeout-minutes: 10
       - name: Send Telegram message
+        if: always()
         uses: xinthink/action-telegram@v1.1
         with:
           botToken: ${{ secrets.TELEGRAM_TOKEN }}
           chatId: ${{ secrets.TELEGRAM_TO }}
           jobStatus: ${{ job.status }}
           skipSuccess: false
+      # - name: Setup tmate session
+      #   if: ${{ failure() }}
+      #   uses: mxschmitt/action-tmate@v3
+      #   timeout-minutes: 10          

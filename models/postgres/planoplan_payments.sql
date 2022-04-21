@@ -1,10 +1,7 @@
 -- DROP TABLE planoplan_postgres.planoplan_payments ;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS planoplan_postgres.planoplan_payments
-ENGINE = ReplacingMergeTree()
-ORDER BY id
-PRIMARY KEY id
-POPULATE AS
+CREATE VIEW IF NOT EXISTS planoplan_postgres.planoplan_payments
+AS
 SELECT
 
 	  JSONExtract(_airbyte_data, 'id', 'UInt32') as `id`
