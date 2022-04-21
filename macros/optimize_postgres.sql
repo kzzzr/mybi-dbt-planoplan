@@ -4,7 +4,6 @@
 
               'planoplan_postgres.planoplan_clients'
             , 'planoplan_postgres.planoplan_events'
-            , 'planoplan_postgres.planoplan_payments'
             , 'planoplan_postgres.planoplan_promocodes'
             , 'planoplan_postgres.planoplan_render_tasks'
             , 'planoplan_postgres.planoplan_store_goods'
