@@ -47,7 +47,7 @@ psql --dbname=planoplan --username=airbyte --host=db.planoplan.com \
 psql --dbname=planoplan --username=airbyte --host=db.planoplan.com \
 	-c "COPY (SELECT * FROM public.render_tasks limit 10) TO stdout DELIMITER ',' CSV HEADER" > 'render_tasks_csv'
 
-clickhouse-client --host "rc1b-na7cwldhyrfft8bb.mdb.yandexcloud.net" \
+clickhouse-client --host "" \
                   --secure \
                   --user "airbyte" \
                   --database "postgres" \
@@ -56,7 +56,7 @@ clickhouse-client --host "rc1b-na7cwldhyrfft8bb.mdb.yandexcloud.net" \
 
 cat render_tasks_csv | \
 clickhouse-client \
---host="rc1b-na7cwldhyrfft8bb.mdb.yandexcloud.net" \
+--host="" \
 --port=9440 \
 --user="airbyte" \
 --password="" \
@@ -68,7 +68,7 @@ clickhouse-client \
 psql --dbname=planoplan --username=airbyte --host=db.planoplan.com \
 -c "COPY (SELECT * FROM public.render_tasks WHERE created >= '2019-01-01' limit 100) TO stdout DELIMITER ',' CSV HEADER" | \
 clickhouse-client \
---host="rc1b-na7cwldhyrfft8bb.mdb.yandexcloud.net" \
+--host="" \
 --port=9440 \
 --user="airbyte" \
 --password="" \
@@ -80,7 +80,7 @@ clickhouse-client \
 psql --dbname=planoplan --username=airbyte --host=db.planoplan.com \
 -c "COPY (SELECT * FROM public.render_tasks) TO stdout DELIMITER ',' CSV HEADER" | \
 clickhouse-client \
---host="rc1b-na7cwldhyrfft8bb.mdb.yandexcloud.net" \
+--host="" \
 --port=9440 \
 --user="airbyte" \
 --password="" \
@@ -175,7 +175,7 @@ get_source_cursor() {
 
 get_target_cursor() {
     clickhouse-client \
-        --host="rc1b-na7cwldhyrfft8bb.mdb.yandexcloud.net" \
+        --host="" \
         --port=9440 \
         --user="airbyte" \
         --password="" \
@@ -194,7 +194,7 @@ load_rows() {
         --host=db.planoplan.com \
         -c "COPY (SELECT * FROM public.render_tasks WHERE id between $1 and $2) TO stdout DELIMITER ',' CSV HEADER" \
     | clickhouse-client \
-        --host="rc1b-na7cwldhyrfft8bb.mdb.yandexcloud.net" \
+        --host="" \
         --port=9440 \
         --user="airbyte" \
         --password="" \
