@@ -22,16 +22,16 @@ SELECT DISTINCT
 
       tpl.1 AS goal_id
     , CASE goal_id
-    	WHEN 'ga_goal1' THEN 'Регистрация'
-    	WHEN 'ga_goal2' THEN 'Подтверждение регистрации'
-    	WHEN 'ga_goal3' THEN 'Посещение страницы Магазин'
-    	WHEN 'ga_goal4' THEN 'Управление тарифом'
-    	WHEN 'ga_goal5' THEN 'Скачан инсталлятор'
-    	WHEN 'ga_goal6' THEN 'Работал в Web'
-    	WHEN 'ga_goal7' THEN 'Работал в Standalone'
-    	WHEN 'ga_goal8' THEN 'Посещение страницы проекта (ALL)'
-    	WHEN 'ga_goal9' THEN 'Успешная оплата'
-    	WHEN 'ga_goal13' THEN 'Улучшение тарифа (успешная оплата)'
+    	WHEN '1' THEN 'Регистрация'
+    	WHEN '2' THEN 'Подтверждение регистрации'
+    	WHEN '3' THEN 'Посещение страницы Магазин'
+    	WHEN '4' THEN 'Управление тарифом'
+    	WHEN '5' THEN 'Скачан инсталлятор'
+    	WHEN '6' THEN 'Работал в Web'
+    	WHEN '7' THEN 'Работал в Standalone'
+    	WHEN '8' THEN 'Посещение страницы проекта (ALL)'
+    	WHEN '9' THEN 'Успешная оплата'
+    	WHEN '10' THEN 'Улучшение тарифа (успешная оплата)'
     	ELSE ''
       END AS goal_name	 
 
