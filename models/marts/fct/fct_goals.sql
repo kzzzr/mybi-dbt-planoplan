@@ -65,3 +65,5 @@ from {{ ref('int_fct_goals') }} as gl
     left any join {{ ref('stg_languages') }} as lg on gl.session_id = lg.session_id
     left any join {{ ref('stg_users') }} as us on gl.session_id = us.session_id
     left any join {{ ref('stg_platform') }} as pf on gl.session_id = pf.session_id
+
+settings max_memory_usage = 20000000000000
