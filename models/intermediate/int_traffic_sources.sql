@@ -62,3 +62,5 @@ FROM traffic_sources_utm AS a
 		AND a.ga_channelgrouping = b.ga_channelgrouping
 		AND a.ga_source = b.ga_source
 		AND a.ga_medium = b.ga_medium
+
+settings max_memory_usage = 20000000000000

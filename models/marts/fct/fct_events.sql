@@ -71,3 +71,5 @@ from {{ ref('int_fct_events') }} as et
     left any join {{ ref('stg_platform') }} as pf on et.session_id = pf.session_id
     left any join {{ ref('stg_languages') }} as lg on et.session_id = lg.session_id
     left any join {{ ref('stg_users') }} as us on et.session_id = us.session_id
+
+settings max_memory_usage = 20000000000000

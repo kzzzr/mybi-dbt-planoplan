@@ -66,3 +66,4 @@ from {{ ref('int_fct_seances') }} as s
     left any join {{ ref('stg_users') }} as us on s.session_id = us.session_id
     left any join {{ ref('stg_platform') }} as pf on s.session_id = pf.session_id
 
+settings max_memory_usage = 20000000000000

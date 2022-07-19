@@ -67,3 +67,5 @@ from {{ ref('int_goals') }} as gl
     --left any join {{ ref('stg_platform') }} as pf on et.session_id = pf.session_id
 
 where gl.ga_goal_reaches > 0 
+
+settings max_memory_usage = 20000000000000

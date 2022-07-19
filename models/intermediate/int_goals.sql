@@ -46,3 +46,5 @@ SELECT
 
 FROM goals
     ARRAY JOIN tupleToNameValuePairs((ga_goal1, ga_goal2, ga_goal3, ga_goal4, ga_goal5, ga_goal6, ga_goal7, ga_goal8, ga_goal9, ga_goal13)) AS tpl
+
+settings max_memory_usage = 20000000000000
