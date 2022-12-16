@@ -1,39 +1,39 @@
 
-version: 2
+# version: 2
 
-models:
+# models:
 
-  - name: f_events
-    description: ""
-    tests:
-      - unique:
-          column_name: session_id
-          severity: warn    
+#   - name: f_events
+#     description: ""
+#     tests:
+#       - unique:
+#           column_name: session_id
+#           severity: warn    
 
-  - name: f_goals
-    description: ""
-    tests:
-      - unique:
-          column_name: session_id
-          severity: warn    
+#   - name: f_goals
+#     description: ""
+#     tests:
+#       - unique:
+#           column_name: session_id
+#           severity: warn    
 
-  - name: f_pageviews
-    description: ""
-    tests:
-      - unique:
-          column_name: session_id
-          severity: warn    
+#   - name: f_pageviews
+#     description: ""
+#     tests:
+#       - unique:
+#           column_name: session_id
+#           severity: warn    
 
-  - name: f_seances
-    description: ""
-    tests:
-      - unique:
-          column_name: session_id
-          severity: warn    
+#   - name: f_seances
+#     description: ""
+#     tests:
+#       - unique:
+#           column_name: session_id
+#           severity: warn    
 
-  - name: f_transactions
-    description: ""
-    tests:
-      - unique:
-          column_name: session_id
-          severity: warn    
+#   - name: f_transactions
+#     description: ""
+#     tests:
+#       - unique:
+#           column_name: session_id
+#           severity: warn    

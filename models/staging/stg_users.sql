@@ -15,8 +15,8 @@ UNION ALL
 
 SELECT DISTINCT
 
-	  concat(CAST(CAST(parseDateTime32BestEffortOrNull(simple_date) AS DATE) AS String), ':', ga_dimension13) AS key_dt_session_id	  
-	, CAST(parseDateTime32BestEffortOrNull(simple_date) AS DATE) AS dt
+	  assumeNotNull(concat(CAST(CAST(simple_date AS DATE) AS String), ':', ga_dimension13)) AS key_dt_session_id	  
+	, CAST(simple_date AS DATE) AS dt
 
 	, ga_sessions
 	, ga_dimension1
@@ -24,4 +24,4 @@ SELECT DISTINCT
 	, ga_dimension13 as session_id
 	, ga_datehourminute
 
-FROM {{ ref('flt_users') }}
+FROM {{ source('mybi_dtftgmb', 'users') }}

@@ -19,8 +19,8 @@ UNION ALL
 SELECT DISTINCT
 
 
-	  concat(CAST(CAST(parseDateTime32BestEffortOrNull(simple_date) AS DATE) AS String), ':', ga_dimension13) AS key_dt_session_id	  
-	, CAST(parseDateTime32BestEffortOrNull(simple_date) AS DATE) AS dt
+	  assumeNotNull(concat(CAST(CAST(simple_date AS DATE) AS String), ':', ga_dimension13)) AS key_dt_session_id	  
+	, CAST(simple_date AS DATE) AS dt
 
 	, ga_medium
 	, ga_source
@@ -30,4 +30,4 @@ SELECT DISTINCT
 	, ga_sourcemedium
 	, ga_channelgrouping
 
-FROM {{ ref('flt_traffic_sources_full_path') }}
+FROM {{ source('mybi_dtftgmb', 'traffic_sources_full_path') }}

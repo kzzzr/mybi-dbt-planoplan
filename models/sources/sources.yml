@@ -42,7 +42,7 @@ sources:
         identifier: analytics_report_31281
         description: "GA_Транзакции"
       - name: users
-        identifier: analytics_report_31282
+        identifier: analytics_report_49168
         description: "GA_Параметры посетителей"
       - name: traffic_sources_full_path
         identifier: analytics_report_31283
@@ -50,63 +50,73 @@ sources:
       - name: registration_polls
         identifier: analytics_report_33098
         description: "GA_Опрос при регистрации"
-
-  - name: mybi
-    # database: planoplan
-    schema: mybi
-    tags: ["sources", "ga"]      
-    # freshness:
-    #   warn_after: {count: 12, period: hour}
-    #   error_after: {count: 24, period: hour}
-    # loaded_at_field: created_at
-    description: "myBI database with historical data"
-
-    tables:
-
-      - name: seances
-        identifier: _airbyte_raw_analytics_report_49158
-        description: "GA_Сеансы"
-      - name: pageviews
-        identifier: _airbyte_raw_analytics_report_49166
-        description: "GA_Просмотры страниц"
-      - name: events
-        identifier: _airbyte_raw_analytics_report_49150
-        description: "GA_События"
-      - name: traffic_sources_utm
-        identifier: _airbyte_raw_analytics_report_49134
-        description: "GA_Источники трафика (все utm)"
-      - name: devices
-        identifier: _airbyte_raw_analytics_report_49194
-        description: "GA_Устройства"
-      - name: places
-        identifier: _airbyte_raw_analytics_report_49195
-        description: "GA_Местоположение"
-      - name: languages
-        identifier: _airbyte_raw_analytics_report_49196
-        description: "GA_Язык"
-      - name: goals
-        identifier: _airbyte_raw_analytics_report_49169
-        description: "GA_Цели"
-      - name: transactions
-        identifier: _airbyte_raw_analytics_report_49184
-        description: "GA_Транзакции"
-      - name: users
-        identifier: _airbyte_raw_analytics_report_49168
-        description: "GA_Параметры посетителей"
-      - name: traffic_sources_full_path
-        identifier: _airbyte_raw_analytics_report_49135
-        description: "GA_Источники трафика (полный путь)"
-      - name: registration_polls
-        identifier: _airbyte_raw_analytics_report_49185
-        description: "GA_Опрос при регистрации"
       - name: platforms
-        identifier: _airbyte_raw_analytics_report_49901
-        description: "GA_Платформа"
+        identifier: analytics_report_49901
+        description: "GA_Платформа"        
+
+  - name: mybi_fhqjlqs
+    schema: mybi_fhqjlqs
+    description: '1. Платформа'
+    tables:
+      - name: platforms
+        identifier: analytics_report_64990
+        description: ''
+
+  - name: mybi_rnayzsc
+    schema: mybi_rnayzsc
+    description: '2. События-Цели'
+    tables:
+      - name: events
+        identifier: analytics_report_64991
+        description: ''
+      - name: goals
+        identifier: analytics_report_64992
+        description: ''
+
+  - name: mybi_dtftgmb
+    schema: mybi_dtftgmb
+    description: '3. Сеансы-Посетители-Источники '
+    tables:
+      - name: traffic_sources_utm
+        identifier: analytics_report_64993
+        description: ''
+      - name: traffic_sources_full_path
+        identifier: analytics_report_64994
+        description: ''
+      - name: seances
+        identifier: analytics_report_64995
+        description: ''
+      - name: users
+        identifier: analytics_report_64996
+        description: ''
+
+  - name: mybi_qfjrlkq
+    schema: mybi_qfjrlkq
+    description: '4. Транз-Опрос-Место-Яз-Устр-ва'
+    tables:
+      - name: transactions
+        identifier: analytics_report_64997
+        description: ''
+      - name: registration_polls
+        identifier: analytics_report_64998
+        description: ''
+      - name: devices
+        identifier: analytics_report_65001
+        description: ''
+      - name: places
+        identifier: analytics_report_65002
+        description: ''
+      - name: languages
+        identifier: analytics_report_65003
+        description: ''
+
 
   - name: render
     schema: postgres
     tags: ["sources", "postgres"]      
     description: "PostgreSQL CRM database 'render'"
+    config:
+      enabled: false
 
     tables:
 
@@ -117,6 +127,8 @@ sources:
     schema: postgres
     tags: ["sources", "postgres"]      
     description: "PostgreSQL CRM database 'planoplan'"
+    config:
+      enabled: false    
 
     tables:
 
@@ -147,6 +159,8 @@ sources:
     schema: planoplan_postgres
     tags: ["sources", "postgres"]      
     description: "Materialized Views on top of Postgres tables"
+    config:
+      enabled: false    
 
     tables:
 

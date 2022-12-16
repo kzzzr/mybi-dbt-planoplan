@@ -21,13 +21,13 @@ models:
           column_name: (key_dt_session_id || goal_id)
           severity: warn          
 
-  - name: fct_pageviews
-    columns:
-      - name: key_dt_session_id
-        tests:
-          - unique:
-              severity: warn
-          - not_null   
+  # - name: fct_pageviews
+  #   columns:
+  #     - name: key_dt_session_id
+  #       tests:
+  #         - unique:
+  #             severity: warn
+  #         - not_null   
 
   - name: fct_seances
     columns:

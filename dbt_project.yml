@@ -32,11 +32,12 @@ models:
         +tags: ["planoplan"]
 
         postgres:
-            +enabled: False
+            +enabled: false
             +tags: ["postgres"]
             +schema: "postgres"
 
         flatten:
+            +enabled: false
             +tags: ["flatten"]
             +schema: "flatten"
             +tags: ["flatten"]
