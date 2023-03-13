@@ -58,6 +58,7 @@ jobs:
       - run: dbt --version
       - run: dbt debug
       - run: dbt deps
+      - run: dbt run-operation initialize_dwh
       - run: dbt build --full-refresh
       - name: Send Telegram message
         if: always()

@@ -17,6 +17,11 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_modules"
 
+vars:
+  pg_planoplan: 'pg_planoplan'
+  pg_planoplan_host: 'db.planoplan.com:5432'
+  pg_planoplan_database: 'planoplan'
+
 models:
     mybi_dbt_planoplan:
         +materialized: table
