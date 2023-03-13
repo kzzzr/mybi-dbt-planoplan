@@ -4,7 +4,8 @@ SELECT DISTINCT
 	, CAST(parseDateTime32BestEffortOrNull(simple_date) AS DATE) AS dt
 
 	, ga_sessions
-	, ga_dimension1
+    -- remove GA1.X prefix
+	, substring(ga_dimension1, 7, 256) as ga_dimension1
 	, ga_dimension4
 	, ga_dimension13 as session_id
 	, ga_datehourminute
@@ -19,7 +20,8 @@ SELECT DISTINCT
 	, CAST(simple_date AS DATE) AS dt
 
 	, ga_sessions
-	, ga_dimension1
+    -- remove GA1.X prefix
+	, substring(ga_dimension1, 7, 256) as ga_dimension1
 	, ga_dimension4
 	, ga_dimension13 as session_id
 	, ga_datehourminute
