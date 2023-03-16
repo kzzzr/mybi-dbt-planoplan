@@ -5,6 +5,7 @@ SELECT DISTINCT
 
 	, ga_sessions
     -- remove GA1.X prefix
+	--, ga_dimension1 as ga_dimension1_raw    
 	, substring(ga_dimension1, 7, 256) as ga_dimension1
 	, ga_dimension4
 	, ga_dimension13 as session_id
@@ -21,6 +22,7 @@ SELECT DISTINCT
 
 	, ga_sessions
     -- remove GA1.X prefix
+	--, ga_dimension1 as ga_dimension1_raw
 	, substring(ga_dimension1, 7, 256) as ga_dimension1
 	, ga_dimension4
 	, ga_dimension13 as session_id

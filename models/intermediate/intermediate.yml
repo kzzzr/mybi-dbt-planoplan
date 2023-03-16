@@ -56,3 +56,37 @@ models:
       - unique:
           column_name: (key_dt_session_id || ga_goal_id)
           severity: warn          
+
+  - name: int_pg_users
+    columns:
+      - name: visitor_id
+        tests:
+          - not_null
+    tests:
+      - unique:
+          column_name: (toString(user_id) || visitor_id)
+          severity: warn      
+
+  - name: int_ga_users
+    columns:
+      - name: visitor_id
+        tests:
+          - not_null
+    tests:
+      - unique:
+          column_name: (toString(user_id) || visitor_id)
+          severity: warn      
+    
+  - name: int_users
+    columns:
+      - name: user_id
+        tests:
+          - not_null
+      - name: visitor_id
+        tests:
+          - not_null
+    tests:
+      - unique:
+          column_name: (toString(user_id) || visitor_id)
+          severity: warn          
+    

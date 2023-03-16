@@ -40,7 +40,12 @@ SELECT
 
     -- идентификатор типа посетителя
     , gl.usertype_id as usertype_id
-	--, s.ga_usertype as ga_usertype
+    , CASE
+        WHEN us.ga_dimension1 NOT LIKE '%.%' THEN 'Returning Visitor'
+        WHEN gl.usertype_id IN (5908804507569195084) THEN 'New Visitor'
+        WHEN gl.usertype_id IN (5873220556679212412) THEN 'Returning Visitor'
+      END AS user_type
+	-- , gl.ga_usertype as ga_usertype
 
     -- идентификатор платформы
     , halfMD5(pf.platform) AS platform_id
@@ -55,7 +60,8 @@ SELECT
 	, us.ga_dimension1 as visitor_id
 
     -- идентификатор пользователя
-	, us.ga_dimension4 as user_id
+	, int_users.user_id as user_id
+	, int_users.user_id_min as user_id_min
 	
 from {{ ref('int_fct_goals') }} as gl
     --left any join {{ ref('stg_seances') }} as s on gl.session_id = s.session_id
@@ -64,6 +70,7 @@ from {{ ref('int_fct_goals') }} as gl
     left any join {{ ref('stg_devices') }} as dvc on gl.session_id = dvc.session_id
     left any join {{ ref('stg_languages') }} as lg on gl.session_id = lg.session_id
     left any join {{ ref('stg_users') }} as us on gl.session_id = us.session_id
+    left any join {{ ref('int_users') }} as int_users on int_users.visitor_id = us.ga_dimension1
     left any join {{ ref('stg_platform') }} as pf on gl.session_id = pf.session_id
 
 settings max_memory_usage = 20000000000000
