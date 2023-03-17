@@ -53,6 +53,8 @@ jobs:
         DBT_HOST: ${{ secrets.DBT_HOST }}
         DBT_USER: ${{ secrets.DBT_USER }}
         DBT_PASSWORD: ${{ secrets.DBT_PASSWORD }}
+        PG_PLANOPLAN_USER: ${{ secrets.PG_PLANOPLAN_USER }}
+        PG_PLANOPLAN_PASSWORD: ${{ secrets.PG_PLANOPLAN_PASSWORD }}
     steps:
       - uses: actions/checkout@v3
       - run: dbt --version
