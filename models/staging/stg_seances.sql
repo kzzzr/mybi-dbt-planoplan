@@ -14,7 +14,7 @@ SELECT DISTINCT
 
 FROM {{ source('hist', 'seances') }}
 
-UNION ALL 
+UNION DISTINCT 
 
 SELECT DISTINCT
 

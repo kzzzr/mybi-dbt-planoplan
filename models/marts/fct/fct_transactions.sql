@@ -58,9 +58,10 @@ SELECT
     
     -- идентификатор клиента
 	, us.ga_dimension1 as visitor_id
+	, us.ga_dimension4 as user_id
 
     -- идентификатор пользователя
-	, int_users.user_id as user_id
+	, int_users.user_id as user_id_full
 	, int_users.user_id_min as user_id_min
 
 from {{ ref('int_fct_transactions') }} as tr

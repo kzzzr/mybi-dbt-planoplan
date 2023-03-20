@@ -13,7 +13,7 @@ SELECT DISTINCT
 
 FROM {{ source('hist', 'users') }}
 
-UNION ALL 
+UNION DISTINCT 
 
 SELECT DISTINCT
 

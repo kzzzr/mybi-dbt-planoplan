@@ -10,7 +10,7 @@ SELECT DISTINCT
 
 FROM {{ source('hist', 'transactions') }}
 
-UNION ALL 
+UNION DISTINCT 
 
 SELECT DISTINCT
 

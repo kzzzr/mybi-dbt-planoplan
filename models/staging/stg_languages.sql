@@ -16,7 +16,7 @@ SELECT DISTINCT
 
 FROM {{ source('hist', 'languages') }}
 
-UNION ALL 
+UNION DISTINCT
 
 SELECT DISTINCT
 

@@ -17,7 +17,7 @@ SELECT
 
 FROM {{ source('hist', 'events') }}
 
-UNION ALL 
+UNION DISTINCT
 
 SELECT
 

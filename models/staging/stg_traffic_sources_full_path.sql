@@ -14,7 +14,7 @@ SELECT DISTINCT
 
 FROM {{ source('hist', 'traffic_sources_full_path') }}
 
-UNION ALL 
+UNION DISTINCT
 
 SELECT DISTINCT
 

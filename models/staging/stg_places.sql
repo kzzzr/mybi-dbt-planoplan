@@ -11,7 +11,7 @@ SELECT DISTINCT
 
 FROM {{ source('hist', 'places') }}
 
-UNION ALL 
+UNION DISTINCT 
 
 SELECT DISTINCT
 

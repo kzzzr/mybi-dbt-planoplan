@@ -11,7 +11,7 @@ SELECT DISTINCT
 
 FROM {{ source('hist', 'registration_polls') }}
 
-UNION ALL 
+UNION DISTINCT
 
 SELECT DISTINCT
 

@@ -14,7 +14,7 @@ SELECT DISTINCT
 
 FROM {{ source('hist', 'devices') }}
 
-UNION ALL 
+UNION DISTINCT 
 
 SELECT DISTINCT
 
