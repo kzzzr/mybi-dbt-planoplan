@@ -10,6 +10,11 @@ models:
           - unique:
               severity: warn
           - not_null
+    tests:
+      - unique:
+          column_name: (toString(user_id_min) || user_type)
+          where: user_type IN ('New Visitor')          
+          severity: warn
 
   - name: fct_goals
     columns:
@@ -19,7 +24,11 @@ models:
     tests:
       - unique:
           column_name: (key_dt_session_id || goal_id)
-          severity: warn          
+          severity: warn
+      - unique:
+          column_name: (toString(user_id_min) || user_type)
+          where: user_type IN ('New Visitor')
+          severity: warn
 
   # - name: fct_pageviews
   #   columns:
@@ -36,6 +45,10 @@ models:
           - unique:
               severity: warn
           - not_null
+    tests:
+      - unique:
+          column_name: (toString(user_id_min) || user_type)
+          where: user_type IN ('New Visitor')
 
   - name: fct_transactions
     columns:
@@ -44,3 +57,16 @@ models:
           - unique:
               severity: warn
           - not_null 
+    tests:
+      - unique:
+          column_name: (toString(user_id_min) || user_type)
+          where: user_type IN ('New Visitor')          
+          severity: warn
+
+  - name: fct_users_first_sessions
+    columns:
+      - name: user_id_min
+        tests:
+          - not_null
+          - unique
+          

@@ -14,4 +14,6 @@ SELECT DISTINCT
 
 from {{ ref('fct_seances') }} as seances
 
+where user_id_min not in (0)
+
 settings max_memory_usage = 20000000000000

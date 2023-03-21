@@ -4,9 +4,11 @@ SELECT DISTINCT
 	, CAST(parseDateTime32BestEffortOrNull(simple_date) AS DATE) AS dt
 
 	, ga_sessions
-    -- remove GA1.X prefix
-	--, ga_dimension1 as ga_dimension1_raw    
-	, substring(ga_dimension1, 7, 256) as ga_dimension1
+    -- remove GA1.X prefix where applicable
+    , CASE
+        WHEN ga_dimension1 ILIKE '%GA%' THEN substring(ga_dimension1, 7, 256)
+        ELSE ga_dimension1
+      END AS ga_dimension1
 	, ga_dimension4
 	, ga_dimension13 as session_id
 	, ga_datehourminute
@@ -21,9 +23,11 @@ SELECT DISTINCT
 	, CAST(simple_date AS DATE) AS dt
 
 	, ga_sessions
-    -- remove GA1.X prefix
-	--, ga_dimension1 as ga_dimension1_raw
-	, substring(ga_dimension1, 7, 256) as ga_dimension1
+    -- remove GA1.X prefix where applicable
+    , CASE
+        WHEN ga_dimension1 ILIKE '%GA%' THEN substring(ga_dimension1, 7, 256)
+        ELSE ga_dimension1
+      END AS ga_dimension1
 	, ga_dimension4
 	, ga_dimension13 as session_id
 	, ga_datehourminute

@@ -76,17 +76,3 @@ models:
       - unique:
           column_name: (toString(user_id) || visitor_id)
           severity: warn      
-    
-  - name: int_users
-    columns:
-      - name: user_id
-        tests:
-          - not_null
-      - name: visitor_id
-        tests:
-          - not_null
-    tests:
-      - unique:
-          column_name: (toString(user_id) || visitor_id)
-          severity: warn          
-    

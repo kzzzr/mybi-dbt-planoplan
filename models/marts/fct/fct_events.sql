@@ -39,11 +39,7 @@ SELECT
 
     -- идентификатор типа посетителя
     , et.usertype_id as usertype_id
-    , CASE
-        WHEN us.ga_dimension1 NOT LIKE '%.%' THEN 'Returning Visitor'
-        WHEN et.usertype_id IN (5908804507569195084) THEN 'New Visitor'
-        WHEN et.usertype_id IN (5873220556679212412) THEN 'Returning Visitor'
-      END AS user_type
+    , fct_seances.user_type AS user_type
 	-- , et.ga_usertype as ga_usertype
 
     -- идентификатор платформы
@@ -60,8 +56,8 @@ SELECT
 	, us.ga_dimension4 as user_id
 
     -- идентификатор пользователя
-	, int_users.user_id as user_id_full
-	, int_users.user_id_min as user_id_min
+	, dim_visitors_users_mapping.user_id as user_id_full
+	, dim_visitors_users_mapping.user_id_min as user_id_min
 
     -- идентификатор события - Events
     , et.event_id as event_id
@@ -78,6 +74,7 @@ from {{ ref('int_fct_events') }} as et
     left any join {{ ref('stg_platform') }} as pf on et.session_id = pf.session_id
     left any join {{ ref('stg_languages') }} as lg on et.session_id = lg.session_id
     left any join {{ ref('stg_users') }} as us on et.session_id = us.session_id
-    left any join {{ ref('int_users') }} as int_users on int_users.visitor_id = us.ga_dimension1
+    left any join {{ ref('dim_visitors_users_mapping') }} as dim_visitors_users_mapping on dim_visitors_users_mapping.visitor_id = us.ga_dimension1
+    left any join {{ ref('fct_seances') }} as fct_seances using (key_dt_session_id)
 
 settings max_memory_usage = 20000000000000

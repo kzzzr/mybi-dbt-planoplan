@@ -1,20 +1,20 @@
 
 SELECT
 
-      s.dt as dt
+      s.dt
 
     -- идентификатор сессии - Session
-	, s.ga_sessions as ga_sessions
-	, s.ga_bounces as ga_bounces
-	, s.ga_sessionduration as ga_sessionduration
+	, s.ga_sessions
+	, s.ga_bounces
+	, s.ga_sessionduration
 
     -- идентификатор сессии - Session
-    , s.key_dt_session_id as key_dt_session_id
-	, s.session_id as session_id   
+    , s.key_dt_session_id
+	, s.session_id
     -- , 'seances' as _row_source    
 
     -- идентификатор источника трафика - Traffic sources
-    , s.traffic_source_id as traffic_source_id
+    , s.traffic_source_id
     -- , ts.ga_channelgrouping as ga_channelgrouping
     -- , ts.ga_source as ga_source
     -- , ts.ga_medium as ga_medium
@@ -25,13 +25,13 @@ SELECT
     -- , ts.ga_sourcemedium as ga_sourcemedium
 
     -- идентификатор местоположения - Places
-    , halfMD5(pl.ga_country, pl.ga_region, pl.ga_city) as place_id
+    , s.place_id
 	-- , pl.ga_country as ga_country
 	-- , pl.ga_region as ga_region
 	-- , pl.ga_city as ga_city
 
     -- идентификатор типа устройства
-    , halfMD5(dvc.ga_devicecategory, dvc.ga_browserversion, dvc.ga_operatingsystem, dvc.ga_operatingsystemversion) AS device_id
+    , s.device_id
 	-- , dvc.ga_browser as ga_browser
 	-- , dvc.ga_devicecategory as ga_devicecategory
 	-- , dvc.ga_browserversion as ga_browserversion
@@ -39,39 +39,32 @@ SELECT
 	-- , dvc.ga_operatingsystemversion as ga_operatingsystemversion
 
     -- идентификатор типа посетителя
-    , s.usertype_id as usertype_id
-    , CASE
-        WHEN us.ga_dimension1 NOT LIKE '%.%' THEN 'Returning Visitor'
-        WHEN s.usertype_id IN (5908804507569195084) THEN 'New Visitor'
-        WHEN s.usertype_id IN (5873220556679212412) THEN 'Returning Visitor'
-      END AS user_type
+    , s.usertype_id
 	-- , s.ga_usertype as ga_usertype
 
     -- идентификатор платформы
-    , halfMD5(pf.platform) AS platform_id
+    , s.platform_id
 
     -- идентификатор языка
-    , halfMD5(lg.ga_language) AS language_id
-    , halfMD5(lg.ga_language_group) AS language_group_id
+    , s.language_id
+    , s.language_group_id
     -- , lg.ga_language as ga_language
 	-- , lg.ga_language_group as ga_language_group
     
     -- идентификатор клиента
-	, us.ga_dimension1 as visitor_id
-	, us.ga_dimension4 as user_id
+	, s.visitor_id
+	, s.user_id
 
     -- идентификатор пользователя
-	, int_users.user_id as user_id_full
-	, int_users.user_id_min as user_id_min
+	, s.user_id_full
+	, s.user_id_min
+    , s.seance_number
+    , CASE
+        WHEN s.seance_number = 1
+            AND s.usertype_id IN (5908804507569195084) THEN 'New Visitor'
+        ELSE 'Returning Visitor'
+      END AS user_type
 
-
-from {{ ref('int_fct_seances') }} as s
-    --left any join {{ ref('int_traffic_sources') }} as ts on s.session_id = ts.session_id
-    left any join {{ ref('stg_places') }} as pl on s.session_id = pl.session_id
-    left any join {{ ref('stg_devices') }} as dvc on s.session_id = dvc.session_id
-    left any join {{ ref('stg_languages') }} as lg on s.session_id = lg.session_id
-    left any join {{ ref('stg_users') }} as us on s.session_id = us.session_id
-    left any join {{ ref('int_users') }} as int_users on int_users.visitor_id = us.ga_dimension1
-    left any join {{ ref('stg_platform') }} as pf on s.session_id = pf.session_id
+from {{ ref('int_fct_seances_windowed') }} as s
 
 settings max_memory_usage = 20000000000000
