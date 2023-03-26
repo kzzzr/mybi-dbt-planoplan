@@ -58,7 +58,8 @@ SELECT
     -- идентификатор пользователя
 	, dim_visitors_users_mapping.user_id as user_id_full
 	, dim_visitors_users_mapping.user_id_min as user_id_min
-    , ROW_NUMBER() OVER (PARTITION BY user_id_min ORDER BY dt ASC) AS seance_number
+    , FIRST_VALUE(s.dt) OVER (PARTITION BY user_id_min ORDER BY dt ASC) AS user_id_min_first_dt
+    --, ROW_NUMBER() OVER (PARTITION BY user_id_min ORDER BY dt ASC) AS seance_number
 
 from {{ ref('int_fct_seances') }} as s
     --left any join {{ ref('int_traffic_sources') }} as ts on s.session_id = ts.session_id

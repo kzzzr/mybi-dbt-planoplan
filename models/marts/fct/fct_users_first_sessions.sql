@@ -9,7 +9,7 @@
 SELECT DISTINCT
 
       user_id_min
-    , min(dt) over (partition by user_id_min) as first_session_dt
+    , min(CASE WHEN user_type IN 'New Visitor' THEN dt ELSE NULL END) over (partition by user_id_min) as first_session_dt
     , first_value(visitor_id) over (partition by user_id_min order by dt asc) as first_session_visitor_id
 
 from {{ ref('fct_seances') }} as seances

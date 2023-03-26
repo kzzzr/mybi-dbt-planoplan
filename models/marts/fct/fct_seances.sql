@@ -1,3 +1,15 @@
+WITH first_seance AS (
+
+    SELECT
+          s.key_dt_session_id
+        , ROW_NUMBER() OVER (PARTITION BY s.user_id_min, s.dt, s.usertype_id ORDER BY s.session_id ASC) AS group_row_number
+    FROM {{ ref('int_fct_seances_windowed') }} AS s
+    WHERE 1=1
+        AND s.dt = s.user_id_min_first_dt
+        AND s.visitor_id ILIKE '%.%'
+        AND s.usertype_id IN (5908804507569195084)    
+
+)
 
 SELECT
 
@@ -58,13 +70,18 @@ SELECT
     -- идентификатор пользователя
 	, s.user_id_full
 	, s.user_id_min
-    , s.seance_number
+    , s.user_id_min_first_dt
     , CASE
-        WHEN s.seance_number = 1
-            AND s.usertype_id IN (5908804507569195084) THEN 'New Visitor'
+        WHEN 1=1
+            AND s.dt = s.user_id_min_first_dt
+            AND s.visitor_id ILIKE '%.%'
+            AND s.usertype_id IN (5908804507569195084)
+            AND w.group_row_number = 1
+                THEN 'New Visitor'
         ELSE 'Returning Visitor'
       END AS user_type
 
 from {{ ref('int_fct_seances_windowed') }} as s
+    left any join first_seance as w using (key_dt_session_id)
 
 settings max_memory_usage = 20000000000000
